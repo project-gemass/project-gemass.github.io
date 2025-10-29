@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💖</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at top, #ff80ab, #e91e63);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+    }
+
+    /* Halaman Login */
+    #loginPage {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      width: 90%;
+      max-width: 350px;
+    }
+
+    #loginPage h1 {
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
+
+    input {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 1em;
+      text-align: center;
+    }
+
+    button {
+      background: #ff4d6d;
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff2e63;
+      transform: scale(1.05);
+    }
+
+    /* Halaman Love */
+    #lovePage {
+      position: absolute;
+      inset: 0;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at bottom, #e91e63, #880e4f);
+      flex-direction: column;
+    }
+
+    .card {
+      position: relative;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .foto {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      display: block;
+    }
+
+    .card h2 {
+      margin-top: 10px;
+      font-size: 1.4em;
+      color: #fff;
+    }
+
+    /* Efek Love Terbang */
+    .heart {
+      position: absolute;
+      color: #ffb6c1;
+      font-size: 24px;
+      animation: floatUp 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-150px) scale(1.5); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Halaman Login -->
+  <div id="loginPage">
+    <h1>Login</h1>
+    <input type="password" id="password" placeholder="Masukkan nama..." />
+    <br>
+    <button onclick="checkLogin()">Masuk</button>
+    <p id="error" style="color:#ffd1dc;margin-top:10px;"></p>
+  </div>
+
+  <!-- Halaman Love -->
+  <div id="lovePage">
+    <div class="card" id="loveCard">
+      <img src="https://i.supaimg.com/5c390af4-ac78-44e5-baeb-add78d69e39e.jpg" alt="Foto Cantik" class="foto">
+      <h2>love u gemass 💖</h2>
+    </div>
+  </div>
+
+  <script>
+    function checkLogin() {
+      const input = document.getElementById("password").value.trim().toLowerCase();
+      const error = document.getElementById("error");
+
+      if (input === "maudiena") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("lovePage").style.display = "flex";
+        playMusic();
+      } else {
+        error.textContent = " Salah, coba lagi...";
+      }
+    }
+
+    // Musik otomatis saat halaman love muncul
+    function playMusic() {
+      const audio = new Audio("musik-romantis.mp3");
+      audio.loop = true;
+      audio.play().catch(() => {});
+    }
+
+    // Efek Love saat klik card
+    const loveCard = document.getElementById("loveCard");
+    loveCard.addEventListener("click", (e) => {
+      for (let i = 0; i < 8; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "💖";
+        document.body.appendChild(heart);
+
+        const x = e.clientX + (Math.random() * 60 - 30);
+        const y = e.clientY + (Math.random() * 60 - 30);
+        heart.style.left = x + "px";
+        heart.style.top = y + "px";
+
+        setTimeout(() => heart.remove(), 2000);
+      }
+    });
+  </script>
+</body>
+</html>
